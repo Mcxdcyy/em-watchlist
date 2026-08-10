@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14212b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<title>东财自选解读-08-10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef3f6;
+    --ink: #14212b;
+    --soft: #5a6a75;
+    --mute: #8a97a1;
+    --paper: #ffffff;
+    --line: #d5dee5;
+    --accent: #0f8f7b;
+    --accent-ink: #05362f;
+    --up: #d7263d;
+    --up-bg: #fde8eb;
+    --down: #0f8f7b;
+    --down-bg: #e6f5f2;
+    --slate: #14212b;
+    --font: "Noto Sans SC", "PingFang SC", sans-serif;
+    --num: "IBM Plex Sans", "Noto Sans SC", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font); color: var(--ink); background: var(--bg);
+    line-height: 1.5; -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+    background-image:
+      radial-gradient(1200px 500px at 10% -10%, rgba(15,143,123,.12), transparent 60%),
+      radial-gradient(900px 400px at 100% 0%, rgba(20,33,43,.08), transparent 55%);
+  }
+  .shell { max-width: 880px; margin: 0 auto; padding: 0 0 calc(40px + env(safe-area-inset-bottom,0px)); }
+  @keyframes inUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+  .anim { animation: inUp .45s cubic-bezier(.2,.8,.2,1) both; }
+  .d1 { animation-delay:.04s; } .d2 { animation-delay:.1s; } .d3 { animation-delay:.16s; }
+
+  .mast {
+    background: linear-gradient(145deg, #14212b 0%, #1c3644 55%, #0f8f7b 140%);
+    color: #f4f8f9; padding: 22px 20px 20px; position: relative; overflow: hidden;
+  }
+  .mast::after {
+    content:""; position:absolute; right:-30px; top:-20px; width:180px; height:180px;
+    border:18px solid rgba(255,255,255,.08); border-radius:40px; transform:rotate(18deg);
+  }
+  .back-list {
+    position:relative; z-index:2; display:inline-flex; align-items:center; gap:6px;
+    margin-bottom:14px; padding:8px 12px; text-decoration:none; color:var(--accent-ink);
+    background:#b8f0e4; font-size:13px; font-weight:800; line-height:1.2;
+  }
+  .mast-kicker {
+    position:relative; z-index:1; font-size:11px; font-weight:700; letter-spacing:.18em;
+    text-transform:uppercase; color:#9ef0df; margin-bottom:8px;
+  }
+  .mast h1 {
+    position:relative; z-index:1; font-size:clamp(26px,6vw,34px); font-weight:900;
+    letter-spacing:-.02em; line-height:1.15;
+  }
+  .mast h1 span {
+    display:block; margin-top:8px; font-size:13px; font-weight:500; color:rgba(244,248,249,.7);
+  }
+  .idx-row {
+    position:relative; z-index:1; display:flex; gap:8px; margin-top:16px; flex-wrap:wrap;
+  }
+  .idx {
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12);
+    padding:8px 10px; min-width:96px; flex:1;
+  }
+  .idx em { display:block; font-style:normal; font-size:11px; color:rgba(244,248,249,.65); }
+  .idx b { font-family:var(--num); font-size:15px; font-variant-numeric:tabular-nums; }
+  .idx.up b { color:#ff8f9c; } .idx.down b { color:#9ef0df; }
+
+  .nav-strip {
+    display:flex; overflow-x:auto; gap:0; border-bottom:1px solid var(--line);
+    background:var(--paper); -webkit-overflow-scrolling:touch;
+  }
+  .nav-strip a {
+    flex:0 0 auto; min-width:72px; text-align:center; text-decoration:none;
+    padding:12px 10px; font-size:12px; font-weight:700; color:var(--soft);
+    border-right:1px solid var(--line);
+  }
+  .nav-strip a em {
+    display:block; font-style:normal; font-family:var(--num); font-size:11px;
+    color:var(--mute); margin-bottom:2px;
+  }
+
+  .pad { padding:18px 16px 6px; }
+  .headline {
+    background:var(--paper); border:1px solid var(--line); padding:14px 16px;
+    font-size:14px; color:var(--soft);
+  }
+  .headline b { color:var(--ink); }
+
+  .block { margin:16px 16px 0; }
+  .block-h {
+    margin-bottom:10px; padding:4px 2px;
+  }
+  .block-h h2 { font-size:18px; font-weight:900; letter-spacing:-.01em; }
+  .block-h p { margin-top:4px; font-size:13px; color:var(--soft); }
+
+  .cards { display:grid; gap:10px; }
+  .card {
+    background:var(--paper); border:1px solid var(--line); padding:14px 14px 12px;
+    border-left:4px solid var(--mute);
+  }
+  .card.up { border-left-color: var(--up); }
+  .card.down { border-left-color: var(--down); }
+  .card header { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+  .nm b { display:block; font-size:16px; font-weight:800; }
+  .nm span { font-size:12px; color:var(--mute); font-family:var(--num); }
+  .px { text-align:right; }
+  .px b {
+    display:block; font-family:var(--num); font-size:18px; font-weight:700;
+    font-variant-numeric:tabular-nums;
+  }
+  .card.up .px b { color:var(--up); }
+  .card.down .px b { color:var(--down); }
+  .px span { font-size:12px; color:var(--mute); font-family:var(--num); }
+  .why { margin-top:10px; font-size:13.5px; color:var(--ink); line-height:1.55; }
+  .meta {
+    margin-top:10px; font-size:12px; color:var(--soft); padding-top:8px;
+    border-top:1px dashed var(--line);
+  }
+  .meta span {
+    display:inline-block; margin-right:8px; padding:1px 6px; background:var(--bg);
+    color:var(--mute); font-size:11px; font-weight:700;
+  }
+  .news { margin-top:8px; list-style:none; }
+  .news li {
+    font-size:12px; color:var(--soft); padding:4px 0; line-height:1.4;
+  }
+  .news li span {
+    display:inline-block; min-width:72px; color:var(--mute); font-family:var(--num); margin-right:6px;
+  }
+  .empty { font-size:13px; color:var(--mute); padding:12px; background:var(--paper); border:1px dashed var(--line); }
+
+  .foot {
+    margin:24px 16px 0; color:var(--mute); font-size:12px; line-height:1.6;
+  }
+
+  @media (min-width:720px) {
+    .cards { grid-template-columns: 1fr 1fr; }
+    .pad { padding:22px 20px 8px; }
+    .block { margin:18px 20px 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <header class="mast">
+      <a class="back-list" href="./index.html">← 日期列表</a>
+      <div class="mast-kicker">EASTMONEY WATCHLIST</div>
+      <h1>东财自选解读<span>08-10 · 分组涨跌原因 · 生成于 2026-08-10 15:28</span></h1>
+      <div class="idx-row"><div class="idx up"><em>上证指数</em><b>+0.67%</b></div><div class="idx up"><em>深证成指</em><b>+0.04%</b></div><div class="idx down"><em>创业板指</em><b>-0.73%</b></div></div>
+    </header>
+    <nav class="nav-strip"><a href="#g0"><em>01</em>自选股</a><a href="#g1"><em>02</em>主升均线I五</a><a href="#g2"><em>03</em>主升均线I十</a><a href="#g3"><em>04</em>20I30日</a><a href="#g4"><em>05</em>60日大趋I</a><a href="#g5"><em>06</em>左侧I券商</a><a href="#g6"><em>07</em>10cm强趋</a><a href="#g7"><em>08</em>周趋势</a></nav>
+    <div class="pad anim">
+      <div class="headline"><b>今日概览</b> · 覆盖分组个股 58 只（涨25/跌27）。今日最强看点：北方长龙 +20.00%。 归因综合行情涨跌、板块联动与公开资讯，仅供复盘参考，非投资建议。</div>
+    </div>
+    
+<section class="block anim d1" id="g0">
+  <div class="block-h">
+    <h2>自选股</h2>
+    <p>共18只 · 涨6 / 跌10 / 平2。最强 北方长龙 +20.00%，最弱 C嘉立创 -9.17%。</p>
+  </div>
+  <div class="cards">
+<article class="card up">
+  <header>
+    <div class="nm"><b>北方长龙</b><span>SZ301357</span></div>
+    <div class="px"><b>+20.00%</b><span>113.23</span></div>
+  </header>
+  <p class="why">今日上涨 +20.00%，现价 113.23。主因偏向板块联动：地面兵装Ⅲ板块走强（+5.81%）。近期资讯：军工板块震荡反弹 北方长龙涨超10%。</p>
+  <div class="meta"><span>板块</span>地面兵装Ⅲ+5.81%（领涨长城军工） · 地面兵装Ⅱ+5.81%（领涨长城军工） · 国防军工+2.05%（领涨长城军工） · 陕西板块+1.65%（领涨美邦股份）</div>
+  <ul class="news"><li><span>2026-07-30</span>军工板块震荡反弹 北方长龙涨超10%</li><li><span>2026-07-30</span>军工板块震荡反弹 北方长龙涨超10%</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>高争民爆</b><span>SZ002827</span></div>
+    <div class="px"><b>+10.01%</b><span>59.58</span></div>
+  </header>
+  <p class="why">今日上涨 +10.01%，现价 59.58。主因偏向板块联动：化学制品板块走强（+1.81%）。当日资讯：高争民爆涨停走出3连板。</p>
+  <div class="meta"><span>板块</span>化学制品+1.81%（领涨高争民爆） · 基础化工+1.88%（领涨美邦股份） · 民爆制品+3.14%（领涨高争民爆） · 西藏板块+2.26%（领涨高争民爆）</div>
+  <ul class="news"><li><span>2026-08-10</span>高争民爆涨停走出3连板</li><li><span>2026-08-10</span>高争民爆录得9天8板</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>一鸣食品</b><span>SH605179</span></div>
+    <div class="px"><b>+9.98%</b><span>25.12</span></div>
+  </header>
+  <p class="why">今日上涨 +9.98%，现价 25.12。主因偏向板块联动：乳品板块走强（+4.44%）。当日资讯：低估值+低仓位！食品ETF华夏（159151）逆市上涨，成分股一鸣食品10天6涨停。</p>
+  <div class="meta"><span>板块</span>乳品+4.44%（领涨一鸣食品） · 饮料乳品+4.54%（领涨一鸣食品） · 食品饮料+2.98%（领涨金达威） · 浙江板块+1.41%（领涨亚太药业）</div>
+  <ul class="news"><li><span>2026-08-10</span>低估值+低仓位！食品ETF华夏（159151）逆市上涨，成分股一鸣食品10天6涨停</li><li><span>2026-08-10</span>今日涨跌停股分析：103只涨停股、5只跌停股，乳业奶粉概念走强，一鸣食品、皇氏集团涨停</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>传智教育</b><span>SZ003032</span></div>
+    <div class="px"><b>+4.61%</b><span>12.03</span></div>
+  </header>
+  <p class="why">今日上涨 +4.61%，现价 12.03。主因偏向板块联动：教育板块走强（+1.89%）。近期资讯：传智教育龙虎榜数据（8月7日）。</p>
+  <div class="meta"><span>板块</span>教育+1.89%（领涨全通教育） · 社会服务+2.02%（领涨华天酒店） · 培训教育+2.07%（领涨全通教育） · 江苏板块+1.09%（领涨海鸥股份）</div>
+  <ul class="news"><li><span>2026-08-07</span>传智教育龙虎榜数据（8月7日）</li><li><span>2026-08-07</span>传智教育(003032)龙虎榜数据(08-07)</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>铜冠铜箔</b><span>SZ301217</span></div>
+    <div class="px"><b>+4.47%</b><span>120.99</span></div>
+  </header>
+  <p class="why">今日上涨 +4.47%，现价 120.99。主因偏向板块联动：电池板块走强（+1.08%）。近期资讯：铜冠铜箔盘中涨停。</p>
+  <div class="meta"><span>板块</span>电池+1.08%（领涨圣阳股份） · 锂电池+0.85%（领涨领湃科技） · 电力设备+1.20%（领涨信通电子） · 安徽板块+1.61%（领涨蓝盾光电）</div>
+  <ul class="news"><li><span>2026-08-07</span>铜冠铜箔盘中涨停</li><li><span>2026-08-07</span>PET铜箔板块再度走高，铜冠铜箔涨停</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>胜宏科技</b><span>SZ300476</span></div>
+    <div class="px"><b>+2.07%</b><span>286.00</span></div>
+  </header>
+  <p class="why">今日上涨 +2.07%，现价 286.00。所属/相关板块：元件-0.99%（领涨贤丰控股）；电子+0.15%（领涨京泉华）；印制电路板-1.02%（领涨贤丰控股）。当日资讯：胜宏科技成交额超150亿元。</p>
+  <div class="meta"><span>板块</span>元件-0.99%（领涨贤丰控股） · 电子+0.15%（领涨京泉华） · 印制电路板-1.02%（领涨贤丰控股） · 广东板块+0.88%（领涨京泉华）</div>
+  <ul class="news"><li><span>2026-08-10</span>胜宏科技成交额超150亿元</li><li><span>2026-08-10</span>胜宏科技成交额超100亿元</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>东方财富</b><span>SZ300059</span></div>
+    <div class="px"><b>+0.25%</b><span>20.03</span></div>
+  </header>
+  <p class="why">今日上涨 +0.25%，现价 20.03。所属/相关板块：证券Ⅱ+0.29%（领涨长城证券）；证券Ⅲ+0.29%（领涨长城证券）；非银金融+0.67%（领涨仁东控股）。当日资讯：东方财富期货早餐 8月10日 周一。</p>
+  <div class="meta"><span>板块</span>证券Ⅱ+0.29%（领涨长城证券） · 证券Ⅲ+0.29%（领涨长城证券） · 非银金融+0.67%（领涨仁东控股） · 上海板块+1.37%（领涨开开实业）</div>
+  <ul class="news"><li><span>2026-08-10</span>东方财富期货早餐 8月10日 周一</li><li><span>2026-08-10</span>东方财富财经早餐 8月10日周一</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>指南针</b><span>SZ300803</span></div>
+    <div class="px"><b>-0.08%</b><span>83.93</span></div>
+  </header>
+  <p class="why">今日下跌 -0.08%，现价 83.93。所属/相关板块：垂直应用软件+0.42%（领涨石基信息）；计算机+0.33%（领涨榕基软件）；软件开发+0.31%（领涨石基信息）。近期资讯：指南针第5次向麦高证券增资。</p>
+  <div class="meta"><span>板块</span>垂直应用软件+0.42%（领涨石基信息） · 计算机+0.33%（领涨榕基软件） · 软件开发+0.31%（领涨石基信息） · 北京板块+1.19%（领涨京投发展）</div>
+  <ul class="news"><li><span>2026-07-24</span>指南针第5次向麦高证券增资</li><li><span>2026-07-21</span>指南针增资2亿！麦高证券注册资本升至17亿元</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>阳光电源</b><span>SZ300274</span></div>
+    <div class="px"><b>-0.39%</b><span>113.71</span></div>
+  </header>
+  <p class="why">今日下跌 -0.39%，现价 113.71。所属/相关板块：逆变器-0.35%（领涨昱能科技）；电力设备+1.20%（领涨信通电子）；光伏设备+0.66%（领涨华民股份）。当日资讯：阳光电源，下一次出手在何时。</p>
+  <div class="meta"><span>板块</span>逆变器-0.35%（领涨昱能科技） · 电力设备+1.20%（领涨信通电子） · 光伏设备+0.66%（领涨华民股份） · 安徽板块+1.61%（领涨蓝盾光电）</div>
+  <ul class="news"><li><span>2026-08-10</span>阳光电源，下一次出手在何时</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>同花顺</b><span>SZ300033</span></div>
+    <div class="px"><b>-0.55%</b><span>238.51</span></div>
+  </header>
+  <p class="why">今日下跌 -0.55%，现价 238.51。所属/相关板块：软件开发+0.31%（领涨石基信息）；垂直应用软件+0.42%（领涨石基信息）；计算机+0.33%（领涨榕基软件）。近期资讯：2028年国内金融机构IT技术投入将增至6515亿元，金融科技ETF广发(159086)今日正式上市，重仓同花顺、东方财富等金融科技龙头。</p>
+  <div class="meta"><span>板块</span>软件开发+0.31%（领涨石基信息） · 垂直应用软件+0.42%（领涨石基信息） · 计算机+0.33%（领涨榕基软件） · 浙江板块+1.41%（领涨亚太药业）</div>
+  <ul class="news"><li><span>2026-07-30</span>2028年国内金融机构IT技术投入将增至6515亿元，金融科技ETF广发(159086)今日正式上市，重仓同花顺、东方财富等金融科技龙头</li><li><span>2026-07-20</span>同花顺中期分红提议：每10股派2元</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>佰维存储</b><span>SH688525</span></div>
+    <div class="px"><b>-1.18%</b><span>242.00</span></div>
+  </header>
+  <p class="why">今日下跌 -1.18%，现价 242.00。所属/相关板块：数字芯片设计-1.02%（领涨江波龙）；电子+0.15%（领涨京泉华）；半导体+0.29%（领涨先导基电）。近期资讯：佰维存储：把握“超级周期”发展窗口。</p>
+  <div class="meta"><span>板块</span>数字芯片设计-1.02%（领涨江波龙） · 电子+0.15%（领涨京泉华） · 半导体+0.29%（领涨先导基电） · 广东板块+0.88%（领涨京泉华）</div>
+  <ul class="news"><li><span>2026-08-07</span>佰维存储：把握“超级周期”发展窗口</li><li><span>2026-08-07</span>佰维存储：控股子公司拟增资扩股引入投资者</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>星环科技-U</b><span>SH688031</span></div>
+    <div class="px"><b>-1.98%</b><span>113.11</span></div>
+  </header>
+  <p class="why">今日下跌 -1.98%，现价 113.11。所属/相关板块：软件开发+0.31%（领涨石基信息）；横向通用软件+0.01%（领涨汉仪股份）；计算机+0.33%（领涨榕基软件）。近期资讯：强势股追踪 主力资金连续5日净流入80股。</p>
+  <div class="meta"><span>板块</span>软件开发+0.31%（领涨石基信息） · 横向通用软件+0.01%（领涨汉仪股份） · 计算机+0.33%（领涨榕基软件） · 上海板块+1.37%（领涨开开实业）</div>
+  <ul class="news"><li><span>2026-08-05</span>强势股追踪 主力资金连续5日净流入80股</li><li><span>2026-08-04</span>Palantir财报大幅超预期，盘后大涨15%，AI应用迎来春天</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>志特新材</b><span>SZ300986</span></div>
+    <div class="px"><b>-2.03%</b><span>14.50</span></div>
+  </header>
+  <p class="why">今日下跌 -2.03%，现价 14.50。所属/相关板块：其他专业工程+0.81%（领涨能辉科技）；专业工程+1.39%（领涨鸿路钢构）；建筑装饰+1.36%（领涨江河集团）。近期资讯：志特新材8月7日龙虎榜数据。</p>
+  <div class="meta"><span>板块</span>其他专业工程+0.81%（领涨能辉科技） · 专业工程+1.39%（领涨鸿路钢构） · 建筑装饰+1.36%（领涨江河集团） · 江西板块+1.48%（领涨世龙实业）</div>
+  <ul class="news"><li><span>2026-08-07</span>志特新材8月7日龙虎榜数据</li><li><span>2026-08-07</span>志特新材(300986)龙虎榜数据(08-07)</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>方邦股份</b><span>SH688020</span></div>
+    <div class="px"><b>-2.64%</b><span>142.30</span></div>
+  </header>
+  <p class="why">今日下跌 -2.64%，现价 142.30。所属/相关板块：元件-0.99%（领涨贤丰控股）；印制电路板-1.02%（领涨贤丰控股）；电子+0.15%（领涨京泉华）。近期资讯：方邦股份盘中涨停。</p>
+  <div class="meta"><span>板块</span>元件-0.99%（领涨贤丰控股） · 印制电路板-1.02%（领涨贤丰控股） · 电子+0.15%（领涨京泉华） · 广东板块+0.88%（领涨京泉华）</div>
+  <ul class="news"><li><span>2026-08-07</span>方邦股份盘中涨停</li><li><span>2026-08-07</span>PCB概念持续走高 方邦股份等十余股涨停</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>兆易创新</b><span>SH603986</span></div>
+    <div class="px"><b>-3.36%</b><span>403.03</span></div>
+  </header>
+  <p class="why">今日下跌 -3.36%，现价 403.03。主因偏向板块拖累：数字芯片设计板块走弱（-1.02%）。当日资讯：兆易创新成交额超150亿元。</p>
+  <div class="meta"><span>板块</span>半导体+0.29%（领涨先导基电） · 电子+0.15%（领涨京泉华） · 数字芯片设计-1.02%（领涨江波龙） · 北京板块+1.19%（领涨京投发展）</div>
+  <ul class="news"><li><span>2026-08-10</span>兆易创新成交额超150亿元</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>新易盛</b><span>SZ300502</span></div>
+    <div class="px"><b>-5.07%</b><span>399.60</span></div>
+  </header>
+  <p class="why">今日下跌 -5.07%，现价 399.60。所属/相关板块：通信设备-0.93%（领涨东土科技）；通信网络设备及器件-1.51%（领涨仕佳光子）；通信-0.64%（领涨东土科技）。当日资讯：新易盛成交额超250亿元。</p>
+  <div class="meta"><span>板块</span>通信设备-0.93%（领涨东土科技） · 通信网络设备及器件-1.51%（领涨仕佳光子） · 通信-0.64%（领涨东土科技） · 四川板块+1.80%（领涨贝瑞基因）</div>
+  <ul class="news"><li><span>2026-08-10</span>新易盛成交额超250亿元</li><li><span>2026-08-10</span>新易盛成交额达200亿元</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>中际旭创</b><span>SZ300308</span></div>
+    <div class="px"><b>-6.01%</b><span>864.58</span></div>
+  </header>
+  <p class="why">今日下跌 -6.01%，现价 864.58。所属/相关板块：通信设备-0.93%（领涨东土科技）；通信-0.64%（领涨东土科技）；通信网络设备及器件-1.51%（领涨仕佳光子）。当日资讯：中际旭创A股跌超3%。</p>
+  <div class="meta"><span>板块</span>通信设备-0.93%（领涨东土科技） · 通信-0.64%（领涨东土科技） · 通信网络设备及器件-1.51%（领涨仕佳光子） · 山东板块+1.72%（领涨信通电子）</div>
+  <ul class="news"><li><span>2026-08-10</span>中际旭创A股跌超3%</li><li><span>2026-08-10</span>中际旭创成交额超300亿元</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>C嘉立创</b><span>SZ001232</span></div>
+    <div class="px"><b>-9.17%</b><span>180.10</span></div>
+  </header>
+  <p class="why">今日下跌 -9.17%，现价 180.10。主因偏向板块拖累：印制电路板板块走弱（-1.02%）。近期资讯：C嘉立创上市首日融资余额4.63亿元。</p>
+  <div class="meta"><span>板块</span>印制电路板-1.02%（领涨贤丰控股） · 电子+0.15%（领涨京泉华） · 元件-0.99%（领涨贤丰控股） · 广东板块+0.88%（领涨京泉华）</div>
+  <ul class="news"><li><span>2026-08-05</span>C嘉立创上市首日融资余额4.63亿元</li><li><span>2026-08-09</span>融资调仓路线图出炉！AI芯片龙头及PCB热股获加码</li></ul>
+</article></div>
+</section>
+<section class="block anim d2" id="g1">
+  <div class="block-h">
+    <h2>主升均线I五日线</h2>
+    <p>共2只 · 涨2 / 跌0 / 平0。最强 高争民爆 +10.01%，最弱 盛达资源 +7.81%。</p>
+  </div>
+  <div class="cards">
+<article class="card up">
+  <header>
+    <div class="nm"><b>高争民爆</b><span>SZ002827</span></div>
+    <div class="px"><b>+10.01%</b><span>59.58</span></div>
+  </header>
+  <p class="why">今日上涨 +10.01%，现价 59.58。主因偏向板块联动：化学制品板块走强（+1.81%）。当日资讯：高争民爆涨停走出3连板。</p>
+  <div class="meta"><span>板块</span>化学制品+1.81%（领涨高争民爆） · 基础化工+1.88%（领涨美邦股份） · 民爆制品+3.14%（领涨高争民爆） · 西藏板块+2.26%（领涨高争民爆）</div>
+  <ul class="news"><li><span>2026-08-10</span>高争民爆涨停走出3连板</li><li><span>2026-08-10</span>高争民爆录得9天8板</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>盛达资源</b><span>SZ000603</span></div>
+    <div class="px"><b>+7.81%</b><span>37.12</span></div>
+  </header>
+  <p class="why">今日上涨 +7.81%，现价 37.12。主因偏向板块联动：有色金属板块走强（+2.22%）。当日资讯：盛达资源成交额创2026年1月30日以来新高。</p>
+  <div class="meta"><span>板块</span>有色金属+2.22%（领涨鹏欣资源） · 贵金属+5.22%（领涨招金黄金） · 白银+4.75%（领涨盛达资源） · 北京板块+1.19%（领涨京投发展）</div>
+  <ul class="news"><li><span>2026-08-10</span>盛达资源成交额创2026年1月30日以来新高</li></ul>
+</article></div>
+</section>
+<section class="block anim d3" id="g2">
+  <div class="block-h">
+    <h2>主升均线I十日线</h2>
+    <p>共12只 · 涨4 / 跌7 / 平1。最强 一鸣食品 +9.98%，最弱 长盛轴承 -4.91%。</p>
+  </div>
+  <div class="cards">
+<article class="card up">
+  <header>
+    <div class="nm"><b>一鸣食品</b><span>SH605179</span></div>
+    <div class="px"><b>+9.98%</b><span>25.12</span></div>
+  </header>
+  <p class="why">今日上涨 +9.98%，现价 25.12。主因偏向板块联动：乳品板块走强（+4.44%）。当日资讯：低估值+低仓位！食品ETF华夏（159151）逆市上涨，成分股一鸣食品10天6涨停。</p>
+  <div class="meta"><span>板块</span>乳品+4.44%（领涨一鸣食品） · 饮料乳品+4.54%（领涨一鸣食品） · 食品饮料+2.98%（领涨金达威） · 浙江板块+1.41%（领涨亚太药业）</div>
+  <ul class="news"><li><span>2026-08-10</span>低估值+低仓位！食品ETF华夏（159151）逆市上涨，成分股一鸣食品10天6涨停</li><li><span>2026-08-10</span>今日涨跌停股分析：103只涨停股、5只跌停股，乳业奶粉概念走强，一鸣食品、皇氏集团涨停</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>传智教育</b><span>SZ003032</span></div>
+    <div class="px"><b>+4.61%</b><span>12.03</span></div>
+  </header>
+  <p class="why">今日上涨 +4.61%，现价 12.03。主因偏向板块联动：教育板块走强（+1.89%）。近期资讯：传智教育龙虎榜数据（8月7日）。</p>
+  <div class="meta"><span>板块</span>教育+1.89%（领涨全通教育） · 社会服务+2.02%（领涨华天酒店） · 培训教育+2.07%（领涨全通教育） · 江苏板块+1.09%（领涨海鸥股份）</div>
+  <ul class="news"><li><span>2026-08-07</span>传智教育龙虎榜数据（8月7日）</li><li><span>2026-08-07</span>传智教育(003032)龙虎榜数据(08-07)</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>蓝色光标</b><span>SZ300058</span></div>
+    <div class="px"><b>+1.26%</b><span>16.08</span></div>
+  </header>
+  <p class="why">今日上涨 +1.26%，现价 16.08。所属/相关板块：传媒+1.41%（领涨北京文化）；广告营销+1.43%（领涨三人行）；营销代理+1.34%（领涨三人行）。近期资讯：蓝色光标成交额超100亿元。</p>
+  <div class="meta"><span>板块</span>传媒+1.41%（领涨北京文化） · 广告营销+1.43%（领涨三人行） · 营销代理+1.34%（领涨三人行） · 北京板块+1.19%（领涨京投发展）</div>
+  <ul class="news"><li><span>2026-08-07</span>蓝色光标成交额超100亿元</li><li><span>2026-08-09</span>拉卡拉上半年赚6.7亿，主业盈利仍不如两年前！已清仓蓝色光标，二季度净利缩水42%</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>明新旭腾</b><span>SH605068</span></div>
+    <div class="px"><b>+0.43%</b><span>21.10</span></div>
+  </header>
+  <p class="why">今日上涨 +0.43%，现价 21.10。所属/相关板块：车身附件及饰件+1.84%（领涨上海沿浦）；汽车+1.41%（领涨秦安股份）；汽车零部件+1.37%（领涨秦安股份）。近期资讯：明新旭腾录得7天5板。</p>
+  <div class="meta"><span>板块</span>车身附件及饰件+1.84%（领涨上海沿浦） · 汽车+1.41%（领涨秦安股份） · 汽车零部件+1.37%（领涨秦安股份） · 浙江板块+1.41%（领涨亚太药业）</div>
+  <ul class="news"><li><span>2026-08-04</span>明新旭腾录得7天5板</li><li><span>2026-08-04</span>明新旭腾(605068)龙虎榜数据(08-04)</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>指南针</b><span>SZ300803</span></div>
+    <div class="px"><b>-0.08%</b><span>83.93</span></div>
+  </header>
+  <p class="why">今日下跌 -0.08%，现价 83.93。所属/相关板块：垂直应用软件+0.42%（领涨石基信息）；计算机+0.33%（领涨榕基软件）；软件开发+0.31%（领涨石基信息）。近期资讯：指南针第5次向麦高证券增资。</p>
+  <div class="meta"><span>板块</span>垂直应用软件+0.42%（领涨石基信息） · 计算机+0.33%（领涨榕基软件） · 软件开发+0.31%（领涨石基信息） · 北京板块+1.19%（领涨京投发展）</div>
+  <ul class="news"><li><span>2026-07-24</span>指南针第5次向麦高证券增资</li><li><span>2026-07-21</span>指南针增资2亿！麦高证券注册资本升至17亿元</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>同花顺</b><span>SZ300033</span></div>
+    <div class="px"><b>-0.55%</b><span>238.51</span></div>
+  </header>
+  <p class="why">今日下跌 -0.55%，现价 238.51。所属/相关板块：软件开发+0.31%（领涨石基信息）；垂直应用软件+0.42%（领涨石基信息）；计算机+0.33%（领涨榕基软件）。近期资讯：2028年国内金融机构IT技术投入将增至6515亿元，金融科技ETF广发(159086)今日正式上市，重仓同花顺、东方财富等金融科技龙头。</p>
+  <div class="meta"><span>板块</span>软件开发+0.31%（领涨石基信息） · 垂直应用软件+0.42%（领涨石基信息） · 计算机+0.33%（领涨榕基软件） · 浙江板块+1.41%（领涨亚太药业）</div>
+  <ul class="news"><li><span>2026-07-30</span>2028年国内金融机构IT技术投入将增至6515亿元，金融科技ETF广发(159086)今日正式上市，重仓同花顺、东方财富等金融科技龙头</li><li><span>2026-07-20</span>同花顺中期分红提议：每10股派2元</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>普联软件</b><span>SZ300996</span></div>
+    <div class="px"><b>-0.81%</b><span>19.50</span></div>
+  </header>
+  <p class="why">今日下跌 -0.81%，现价 19.50。所属/相关板块：垂直应用软件+0.42%（领涨石基信息）；计算机+0.33%（领涨榕基软件）；软件开发+0.31%（领涨石基信息）。近期资讯：普联软件(300996)龙虎榜数据(08-05)。</p>
+  <div class="meta"><span>板块</span>垂直应用软件+0.42%（领涨石基信息） · 计算机+0.33%（领涨榕基软件） · 软件开发+0.31%（领涨石基信息） · 山东板块+1.72%（领涨信通电子）</div>
+  <ul class="news"><li><span>2026-08-05</span>普联软件(300996)龙虎榜数据(08-05)</li><li><span>2026-08-04</span>普联软件龙虎榜数据（8月4日）</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>星环科技-U</b><span>SH688031</span></div>
+    <div class="px"><b>-1.98%</b><span>113.11</span></div>
+  </header>
+  <p class="why">今日下跌 -1.98%，现价 113.11。所属/相关板块：软件开发+0.31%（领涨石基信息）；横向通用软件+0.01%（领涨汉仪股份）；计算机+0.33%（领涨榕基软件）。近期资讯：强势股追踪 主力资金连续5日净流入80股。</p>
+  <div class="meta"><span>板块</span>软件开发+0.31%（领涨石基信息） · 横向通用软件+0.01%（领涨汉仪股份） · 计算机+0.33%（领涨榕基软件） · 上海板块+1.37%（领涨开开实业）</div>
+  <ul class="news"><li><span>2026-08-05</span>强势股追踪 主力资金连续5日净流入80股</li><li><span>2026-08-04</span>Palantir财报大幅超预期，盘后大涨15%，AI应用迎来春天</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>志特新材</b><span>SZ300986</span></div>
+    <div class="px"><b>-2.03%</b><span>14.50</span></div>
+  </header>
+  <p class="why">今日下跌 -2.03%，现价 14.50。所属/相关板块：其他专业工程+0.81%（领涨能辉科技）；专业工程+1.39%（领涨鸿路钢构）；建筑装饰+1.36%（领涨江河集团）。近期资讯：志特新材8月7日龙虎榜数据。</p>
+  <div class="meta"><span>板块</span>其他专业工程+0.81%（领涨能辉科技） · 专业工程+1.39%（领涨鸿路钢构） · 建筑装饰+1.36%（领涨江河集团） · 江西板块+1.48%（领涨世龙实业）</div>
+  <ul class="news"><li><span>2026-08-07</span>志特新材8月7日龙虎榜数据</li><li><span>2026-08-07</span>志特新材(300986)龙虎榜数据(08-07)</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>中远海特</b><span>SH600428</span></div>
+    <div class="px"><b>-2.51%</b><span>11.65</span></div>
+  </header>
+  <p class="why">今日下跌 -2.51%，现价 11.65。所属/相关板块：航运港口+1.38%（领涨海通发展）；航运+1.31%（领涨海通发展）；交通运输+1.52%（领涨海通发展）。近期资讯：中远海特：李继春辞去总会计师等职位。</p>
+  <div class="meta"><span>板块</span>航运港口+1.38%（领涨海通发展） · 航运+1.31%（领涨海通发展） · 交通运输+1.52%（领涨海通发展） · 广东板块+0.88%（领涨京泉华）</div>
+  <ul class="news"><li><span>2026-08-07</span>中远海特：李继春辞去总会计师等职位</li><li><span>2026-08-07</span>中远海特：第九届董事会第十一次会议决议公告</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>易点天下</b><span>SZ301171</span></div>
+    <div class="px"><b>-3.02%</b><span>37.95</span></div>
+  </header>
+  <p class="why">今日下跌 -3.02%，现价 37.95。所属/相关板块：传媒+1.41%（领涨北京文化）；营销代理+1.34%（领涨三人行）；广告营销+1.43%（领涨三人行）。近期资讯：易点天下：股票交易异常波动公告。</p>
+  <div class="meta"><span>板块</span>传媒+1.41%（领涨北京文化） · 营销代理+1.34%（领涨三人行） · 广告营销+1.43%（领涨三人行） · 陕西板块+1.65%（领涨美邦股份）</div>
+  <ul class="news"><li><span>2026-08-04</span>易点天下：股票交易异常波动公告</li><li><span>2026-08-04</span>易点天下(301171)龙虎榜数据(08-04)</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>长盛轴承</b><span>SZ300718</span></div>
+    <div class="px"><b>-4.91%</b><span>65.41</span></div>
+  </header>
+  <p class="why">今日下跌 -4.91%，现价 65.41。所属/相关板块：通用设备+1.04%（领涨蓝盾光电）；金属制品+0.65%（领涨锐新科技）；机械设备+0.97%（领涨蓝盾光电）。近期资讯：长盛轴承：已有产品应用于特斯拉汽车。</p>
+  <div class="meta"><span>板块</span>通用设备+1.04%（领涨蓝盾光电） · 金属制品+0.65%（领涨锐新科技） · 机械设备+0.97%（领涨蓝盾光电） · 浙江板块+1.41%（领涨亚太药业）</div>
+  <ul class="news"><li><span>2026-07-31</span>长盛轴承：已有产品应用于特斯拉汽车</li><li><span>2026-07-31</span>长盛轴承：公司已有产品应用于特斯拉汽车上</li></ul>
+</article></div>
+</section>
+<section class="block anim d1" id="g3">
+  <div class="block-h">
+    <h2>20I30日趋I做新高</h2>
+    <p>共6只 · 涨4 / 跌2 / 平0。最强 北方长龙 +20.00%，最弱 陇神戎发 -3.35%。</p>
+  </div>
+  <div class="cards">
+<article class="card up">
+  <header>
+    <div class="nm"><b>北方长龙</b><span>SZ301357</span></div>
+    <div class="px"><b>+20.00%</b><span>113.23</span></div>
+  </header>
+  <p class="why">今日上涨 +20.00%，现价 113.23。主因偏向板块联动：地面兵装Ⅲ板块走强（+5.81%）。近期资讯：军工板块震荡反弹 北方长龙涨超10%。</p>
+  <div class="meta"><span>板块</span>地面兵装Ⅲ+5.81%（领涨长城军工） · 地面兵装Ⅱ+5.81%（领涨长城军工） · 国防军工+2.05%（领涨长城军工） · 陕西板块+1.65%（领涨美邦股份）</div>
+  <ul class="news"><li><span>2026-07-30</span>军工板块震荡反弹 北方长龙涨超10%</li><li><span>2026-07-30</span>军工板块震荡反弹 北方长龙涨超10%</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>立新能源</b><span>SZ001258</span></div>
+    <div class="px"><b>+10.03%</b><span>14.48</span></div>
+  </header>
+  <p class="why">今日上涨 +10.03%，现价 14.48。主因偏向板块联动：公用事业板块走强（+1.46%）。当日资讯：电力板块震荡拉升 立新能源涨停。</p>
+  <div class="meta"><span>板块</span>公用事业+1.46%（领涨新中港） · 电力+1.37%（领涨新中港） · 风力发电+2.65%（领涨绿发电力） · 新疆板块+2.39%（领涨百花医药）</div>
+  <ul class="news"><li><span>2026-08-10</span>电力板块震荡拉升 立新能源涨停</li><li><span>2026-08-10</span>电力板块震荡拉升 立新能源涨停</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>锐捷网络</b><span>SZ301165</span></div>
+    <div class="px"><b>+2.56%</b><span>121.20</span></div>
+  </header>
+  <p class="why">今日上涨 +2.56%，现价 121.20。所属/相关板块：通信设备-0.93%（领涨东土科技）；通信-0.64%（领涨东土科技）；通信网络设备及器件-1.51%（领涨仕佳光子）。近期资讯：星网锐捷：锐捷网络作为独立上市公司，生产经营相对独立。</p>
+  <div class="meta"><span>板块</span>通信设备-0.93%（领涨东土科技） · 通信-0.64%（领涨东土科技） · 通信网络设备及器件-1.51%（领涨仕佳光子） · 福建板块+2.12%（领涨金达威）</div>
+  <ul class="news"><li><span>2026-07-30</span>星网锐捷：锐捷网络作为独立上市公司，生产经营相对独立</li><li><span>2026-07-28</span>奥飞数据与锐捷网络达成战略合作</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>紫金矿业</b><span>SH601899</span></div>
+    <div class="px"><b>+0.85%</b><span>35.45</span></div>
+  </header>
+  <p class="why">今日上涨 +0.85%，现价 35.45。所属/相关板块：有色金属+2.22%（领涨鹏欣资源）；工业金属+1.97%（领涨鹏欣资源）；铜+1.15%（领涨鹏欣资源）。当日资讯：紫金矿业巨额黄金并购案“临门叫停”的冷思考。</p>
+  <div class="meta"><span>板块</span>有色金属+2.22%（领涨鹏欣资源） · 工业金属+1.97%（领涨鹏欣资源） · 铜+1.15%（领涨鹏欣资源） · 福建板块+2.12%（领涨金达威）</div>
+  <ul class="news"><li><span>2026-08-10</span>紫金矿业巨额黄金并购案“临门叫停”的冷思考</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>智度股份</b><span>SZ000676</span></div>
+    <div class="px"><b>-2.35%</b><span>7.48</span></div>
+  </header>
+  <p class="why">今日下跌 -2.35%，现价 7.48。所属/相关板块：传媒+1.41%（领涨北京文化）；营销代理+1.34%（领涨三人行）；广告营销+1.43%（领涨三人行）。近期资讯：广告营销板块短线拉升，智度股份涨停。</p>
+  <div class="meta"><span>板块</span>传媒+1.41%（领涨北京文化） · 营销代理+1.34%（领涨三人行） · 广告营销+1.43%（领涨三人行） · 广东板块+0.88%（领涨京泉华）</div>
+  <ul class="news"><li><span>2026-08-07</span>广告营销板块短线拉升，智度股份涨停</li><li><span>2026-07-27</span>AI应用概念异动 智度股份涨停</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>陇神戎发</b><span>SZ300534</span></div>
+    <div class="px"><b>-3.35%</b><span>15.88</span></div>
+  </header>
+  <p class="why">今日下跌 -3.35%，现价 15.88。所属/相关板块：中药Ⅲ+0.37%（领涨三力制药）；医药生物+1.46%（领涨开开实业）；中药Ⅱ+0.37%（领涨三力制药）。近期资讯：陇神戎发(300534)龙虎榜数据(08-07)。</p>
+  <div class="meta"><span>板块</span>中药Ⅲ+0.37%（领涨三力制药） · 医药生物+1.46%（领涨开开实业） · 中药Ⅱ+0.37%（领涨三力制药） · 甘肃板块+1.10%（领涨长城电工）</div>
+  <ul class="news"><li><span>2026-08-07</span>陇神戎发(300534)龙虎榜数据(08-07)</li><li><span>2026-08-07</span>陇神戎发成交额创2022年3月4日以来新高</li></ul>
+</article></div>
+</section>
+<section class="block anim d2" id="g4">
+  <div class="block-h">
+    <h2>60日大趋I观察</h2>
+    <p>共4只 · 涨2 / 跌1 / 平1。最强 贤丰控股 +9.98%，最弱 紫光股份 -0.97%。</p>
+  </div>
+  <div class="cards">
+<article class="card up">
+  <header>
+    <div class="nm"><b>贤丰控股</b><span>SZ002141</span></div>
+    <div class="px"><b>+9.98%</b><span>6.72</span></div>
+  </header>
+  <p class="why">今日上涨 +9.98%，现价 6.72。所属/相关板块：印制电路板-1.02%（领涨贤丰控股）；电子+0.15%（领涨京泉华）；元件-0.99%（领涨贤丰控股）。近期资讯：动物疫苗板块拉升，贤丰控股直线涨停。</p>
+  <div class="meta"><span>板块</span>印制电路板-1.02%（领涨贤丰控股） · 电子+0.15%（领涨京泉华） · 元件-0.99%（领涨贤丰控股） · 广东板块+0.88%（领涨京泉华）</div>
+  <ul class="news"><li><span>2026-08-07</span>动物疫苗板块拉升，贤丰控股直线涨停</li><li><span>2026-08-07</span>动物疫苗板块持续拉升，贤丰控股直线涨停</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>星网锐捷</b><span>SZ002396</span></div>
+    <div class="px"><b>+1.45%</b><span>30.03</span></div>
+  </header>
+  <p class="why">今日上涨 +1.45%，现价 30.03。所属/相关板块：通信设备-0.93%（领涨东土科技）；通信-0.64%（领涨东土科技）；通信网络设备及器件-1.51%（领涨仕佳光子）。近期资讯：CPO板块大幅拉升 星网锐捷涨停。</p>
+  <div class="meta"><span>板块</span>通信设备-0.93%（领涨东土科技） · 通信-0.64%（领涨东土科技） · 通信网络设备及器件-1.51%（领涨仕佳光子） · 福建板块+2.12%（领涨金达威）</div>
+  <ul class="news"><li><span>2026-08-05</span>CPO板块大幅拉升 星网锐捷涨停</li><li><span>2026-08-05</span>星网锐捷8月5日龙虎榜数据</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>东方财富</b><span>SZ300059</span></div>
+    <div class="px"><b>+0.25%</b><span>20.03</span></div>
+  </header>
+  <p class="why">今日上涨 +0.25%，现价 20.03。所属/相关板块：证券Ⅱ+0.29%（领涨长城证券）；证券Ⅲ+0.29%（领涨长城证券）；非银金融+0.67%（领涨仁东控股）。当日资讯：东方财富期货早餐 8月10日 周一。</p>
+  <div class="meta"><span>板块</span>证券Ⅱ+0.29%（领涨长城证券） · 证券Ⅲ+0.29%（领涨长城证券） · 非银金融+0.67%（领涨仁东控股） · 上海板块+1.37%（领涨开开实业）</div>
+  <ul class="news"><li><span>2026-08-10</span>东方财富期货早餐 8月10日 周一</li><li><span>2026-08-10</span>东方财富财经早餐 8月10日周一</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>紫光股份</b><span>SZ000938</span></div>
+    <div class="px"><b>-0.97%</b><span>37.63</span></div>
+  </header>
+  <p class="why">今日下跌 -0.97%，现价 37.63。所属/相关板块：IT服务Ⅲ+0.52%（领涨榕基软件）；IT服务Ⅱ+0.52%（领涨榕基软件）；计算机+0.33%（领涨榕基软件）。近期资讯：紫光股份：关于补选公司董事的公告。</p>
+  <div class="meta"><span>板块</span>IT服务Ⅲ+0.52%（领涨榕基软件） · IT服务Ⅱ+0.52%（领涨榕基软件） · 计算机+0.33%（领涨榕基软件） · 北京板块+1.19%（领涨京投发展）</div>
+  <ul class="news"><li><span>2026-08-09</span>紫光股份：关于补选公司董事的公告</li><li><span>2026-08-07</span>紫光股份：公司及子公司无逾期担保</li></ul>
+</article></div>
+</section>
+<section class="block anim d3" id="g5">
+  <div class="block-h">
+    <h2>左侧I券商</h2>
+    <p>共12只 · 涨4 / 跌6 / 平2。最强 盛达资源 +7.81%，最弱 长盛轴承 -4.91%。</p>
+  </div>
+  <div class="cards">
+<article class="card up">
+  <header>
+    <div class="nm"><b>盛达资源</b><span>SZ000603</span></div>
+    <div class="px"><b>+7.81%</b><span>37.12</span></div>
+  </header>
+  <p class="why">今日上涨 +7.81%，现价 37.12。主因偏向板块联动：有色金属板块走强（+2.22%）。当日资讯：盛达资源成交额创2026年1月30日以来新高。</p>
+  <div class="meta"><span>板块</span>有色金属+2.22%（领涨鹏欣资源） · 贵金属+5.22%（领涨招金黄金） · 白银+4.75%（领涨盛达资源） · 北京板块+1.19%（领涨京投发展）</div>
+  <ul class="news"><li><span>2026-08-10</span>盛达资源成交额创2026年1月30日以来新高</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>供销大集</b><span>SZ000564</span></div>
+    <div class="px"><b>+1.42%</b><span>1.43</span></div>
+  </header>
+  <p class="why">今日上涨 +1.42%，现价 1.43。所属/相关板块：一般零售+2.37%（领涨大东方）；百货+2.87%（领涨大东方）；商贸零售+2.09%（领涨大东方）。近期资讯：供销大集：累计回购公司股份7299200股。</p>
+  <div class="meta"><span>板块</span>一般零售+2.37%（领涨大东方） · 百货+2.87%（领涨大东方） · 商贸零售+2.09%（领涨大东方） · 陕西板块+1.65%（领涨美邦股份）</div>
+  <ul class="news"><li><span>2026-08-03</span>供销大集：累计回购公司股份7299200股</li><li><span>2026-07-28</span>供销大集：首次回购729.92万股</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>紫金矿业</b><span>SH601899</span></div>
+    <div class="px"><b>+0.85%</b><span>35.45</span></div>
+  </header>
+  <p class="why">今日上涨 +0.85%，现价 35.45。所属/相关板块：有色金属+2.22%（领涨鹏欣资源）；工业金属+1.97%（领涨鹏欣资源）；铜+1.15%（领涨鹏欣资源）。当日资讯：紫金矿业巨额黄金并购案“临门叫停”的冷思考。</p>
+  <div class="meta"><span>板块</span>有色金属+2.22%（领涨鹏欣资源） · 工业金属+1.97%（领涨鹏欣资源） · 铜+1.15%（领涨鹏欣资源） · 福建板块+2.12%（领涨金达威）</div>
+  <ul class="news"><li><span>2026-08-10</span>紫金矿业巨额黄金并购案“临门叫停”的冷思考</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>雪人集团</b><span>SZ002639</span></div>
+    <div class="px"><b>+0.72%</b><span>12.61</span></div>
+  </header>
+  <p class="why">今日上涨 +0.72%，现价 12.61。所属/相关板块：通用设备+1.04%（领涨蓝盾光电）；制冷空调设备+1.19%（领涨海容冷链）；机械设备+0.97%（领涨蓝盾光电）。近期资讯：雪人集团中标2035万元制冰及制冷设备采购项目。</p>
+  <div class="meta"><span>板块</span>通用设备+1.04%（领涨蓝盾光电） · 制冷空调设备+1.19%（领涨海容冷链） · 机械设备+0.97%（领涨蓝盾光电） · 福建板块+2.12%（领涨金达威）</div>
+  <ul class="news"><li><span>2026-08-06</span>雪人集团中标2035万元制冰及制冷设备采购项目</li><li><span>2026-08-04</span>雪人集团成立能源投资公司</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>东方财富</b><span>SZ300059</span></div>
+    <div class="px"><b>+0.25%</b><span>20.03</span></div>
+  </header>
+  <p class="why">今日上涨 +0.25%，现价 20.03。所属/相关板块：证券Ⅱ+0.29%（领涨长城证券）；证券Ⅲ+0.29%（领涨长城证券）；非银金融+0.67%（领涨仁东控股）。当日资讯：东方财富期货早餐 8月10日 周一。</p>
+  <div class="meta"><span>板块</span>证券Ⅱ+0.29%（领涨长城证券） · 证券Ⅲ+0.29%（领涨长城证券） · 非银金融+0.67%（领涨仁东控股） · 上海板块+1.37%（领涨开开实业）</div>
+  <ul class="news"><li><span>2026-08-10</span>东方财富期货早餐 8月10日 周一</li><li><span>2026-08-10</span>东方财富财经早餐 8月10日周一</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>指南针</b><span>SZ300803</span></div>
+    <div class="px"><b>-0.08%</b><span>83.93</span></div>
+  </header>
+  <p class="why">今日下跌 -0.08%，现价 83.93。所属/相关板块：垂直应用软件+0.42%（领涨石基信息）；计算机+0.33%（领涨榕基软件）；软件开发+0.31%（领涨石基信息）。近期资讯：指南针第5次向麦高证券增资。</p>
+  <div class="meta"><span>板块</span>垂直应用软件+0.42%（领涨石基信息） · 计算机+0.33%（领涨榕基软件） · 软件开发+0.31%（领涨石基信息） · 北京板块+1.19%（领涨京投发展）</div>
+  <ul class="news"><li><span>2026-07-24</span>指南针第5次向麦高证券增资</li><li><span>2026-07-21</span>指南针增资2亿！麦高证券注册资本升至17亿元</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>同花顺</b><span>SZ300033</span></div>
+    <div class="px"><b>-0.55%</b><span>238.51</span></div>
+  </header>
+  <p class="why">今日下跌 -0.55%，现价 238.51。所属/相关板块：软件开发+0.31%（领涨石基信息）；垂直应用软件+0.42%（领涨石基信息）；计算机+0.33%（领涨榕基软件）。近期资讯：2028年国内金融机构IT技术投入将增至6515亿元，金融科技ETF广发(159086)今日正式上市，重仓同花顺、东方财富等金融科技龙头。</p>
+  <div class="meta"><span>板块</span>软件开发+0.31%（领涨石基信息） · 垂直应用软件+0.42%（领涨石基信息） · 计算机+0.33%（领涨榕基软件） · 浙江板块+1.41%（领涨亚太药业）</div>
+  <ul class="news"><li><span>2026-07-30</span>2028年国内金融机构IT技术投入将增至6515亿元，金融科技ETF广发(159086)今日正式上市，重仓同花顺、东方财富等金融科技龙头</li><li><span>2026-07-20</span>同花顺中期分红提议：每10股派2元</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>赢时胜</b><span>SZ300377</span></div>
+    <div class="px"><b>-0.63%</b><span>14.29</span></div>
+  </header>
+  <p class="why">今日下跌 -0.63%，现价 14.29。所属/相关板块：垂直应用软件+0.42%（领涨石基信息）；计算机+0.33%（领涨榕基软件）；软件开发+0.31%（领涨石基信息）。近期资讯：赢时胜拟以2500万元转让宁波尚闻科技8.1783%股权。</p>
+  <div class="meta"><span>板块</span>垂直应用软件+0.42%（领涨石基信息） · 计算机+0.33%（领涨榕基软件） · 软件开发+0.31%（领涨石基信息） · 广东板块+0.88%（领涨京泉华）</div>
+  <ul class="news"><li><span>2026-07-09</span>赢时胜拟以2500万元转让宁波尚闻科技8.1783%股权</li><li><span>2026-07-09</span>赢时胜：拟2500万元转让参股公司宁波尚闻8.18%股权</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>江淮汽车</b><span>SH600418</span></div>
+    <div class="px"><b>-1.41%</b><span>23.79</span></div>
+  </header>
+  <p class="why">今日下跌 -1.41%，现价 23.79。所属/相关板块：商用载货车+0.81%（领涨汉马科技）；商用车+1.53%（领涨曙光股份）；汽车+1.41%（领涨秦安股份）。近期资讯：江淮汽车7月产销快报：总销量同比增长13.53%。</p>
+  <div class="meta"><span>板块</span>商用载货车+0.81%（领涨汉马科技） · 商用车+1.53%（领涨曙光股份） · 汽车+1.41%（领涨秦安股份） · 安徽板块+1.61%（领涨蓝盾光电）</div>
+  <ul class="news"><li><span>2026-08-09</span>江淮汽车7月产销快报：总销量同比增长13.53%</li><li><span>2026-08-07</span>江淮汽车：7月汽车产、销量均同比增长</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>银之杰</b><span>SZ300085</span></div>
+    <div class="px"><b>-1.64%</b><span>30.58</span></div>
+  </header>
+  <p class="why">今日下跌 -1.64%，现价 30.58。所属/相关板块：垂直应用软件+0.42%（领涨石基信息）；计算机+0.33%（领涨榕基软件）；软件开发+0.31%（领涨石基信息）。近期资讯：银之杰最新股东户数环比下降5.57%。</p>
+  <div class="meta"><span>板块</span>垂直应用软件+0.42%（领涨石基信息） · 计算机+0.33%（领涨榕基软件） · 软件开发+0.31%（领涨石基信息） · 广东板块+0.88%（领涨京泉华）</div>
+  <ul class="news"><li><span>2026-08-05</span>银之杰最新股东户数环比下降5.57%</li><li><span>2026-07-24</span>银之杰：公司及子公司均无逾期担保</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>财富趋势</b><span>SH688318</span></div>
+    <div class="px"><b>-1.76%</b><span>79.82</span></div>
+  </header>
+  <p class="why">今日下跌 -1.76%，现价 79.82。所属/相关板块：垂直应用软件+0.42%（领涨石基信息）；计算机+0.33%（领涨榕基软件）；软件开发+0.31%（领涨石基信息）。近期资讯：互联网金融板块短线拉升 恒银科技涨停。</p>
+  <div class="meta"><span>板块</span>垂直应用软件+0.42%（领涨石基信息） · 计算机+0.33%（领涨榕基软件） · 软件开发+0.31%（领涨石基信息） · 广东板块+0.88%（领涨京泉华）</div>
+  <ul class="news"><li><span>2026-08-03</span>互联网金融板块短线拉升 恒银科技涨停</li><li><span>2026-08-05</span>涨超2.2%，软件ETF易方达(562930)冲击4连涨</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>长盛轴承</b><span>SZ300718</span></div>
+    <div class="px"><b>-4.91%</b><span>65.41</span></div>
+  </header>
+  <p class="why">今日下跌 -4.91%，现价 65.41。所属/相关板块：通用设备+1.04%（领涨蓝盾光电）；金属制品+0.65%（领涨锐新科技）；机械设备+0.97%（领涨蓝盾光电）。近期资讯：长盛轴承：已有产品应用于特斯拉汽车。</p>
+  <div class="meta"><span>板块</span>通用设备+1.04%（领涨蓝盾光电） · 金属制品+0.65%（领涨锐新科技） · 机械设备+0.97%（领涨蓝盾光电） · 浙江板块+1.41%（领涨亚太药业）</div>
+  <ul class="news"><li><span>2026-07-31</span>长盛轴承：已有产品应用于特斯拉汽车</li><li><span>2026-07-31</span>长盛轴承：公司已有产品应用于特斯拉汽车上</li></ul>
+</article></div>
+</section>
+<section class="block anim d1" id="g6">
+  <div class="block-h">
+    <h2>10cm强趋I五日线</h2>
+    <p>本组暂无个股。</p>
+  </div>
+  <div class="cards"><p class="empty">本组当前为空。</p></div>
+</section>
+<section class="block anim d2" id="g7">
+  <div class="block-h">
+    <h2>周趋势</h2>
+    <p>共4只 · 涨3 / 跌1 / 平0。最强 洁雅股份 +2.03%，最弱 中远海特 -2.51%。</p>
+  </div>
+  <div class="cards">
+<article class="card up">
+  <header>
+    <div class="nm"><b>洁雅股份</b><span>SZ301108</span></div>
+    <div class="px"><b>+2.03%</b><span>38.15</span></div>
+  </header>
+  <p class="why">今日上涨 +2.03%，现价 38.15。所属/相关板块：生活用纸+2.69%（领涨依依股份）；个护用品+2.64%（领涨依依股份）；美容护理+1.85%（领涨敷尔佳）。近期资讯：洁雅股份：截至6月30日公司股东人数为7311户。</p>
+  <div class="meta"><span>板块</span>生活用纸+2.69%（领涨依依股份） · 个护用品+2.64%（领涨依依股份） · 美容护理+1.85%（领涨敷尔佳） · 安徽板块+1.61%（领涨蓝盾光电）</div>
+  <ul class="news"><li><span>2026-07-09</span>洁雅股份：截至6月30日公司股东人数为7311户</li><li><span>2026-07-07</span>洁雅股份：第六届董事会第十次会议决议公告</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>罗莱生活</b><span>SZ002293</span></div>
+    <div class="px"><b>+1.88%</b><span>11.41</span></div>
+  </header>
+  <p class="why">今日上涨 +1.88%，现价 11.41。所属/相关板块：纺织服饰+2.57%（领涨潮宏基）；家纺+2.01%（领涨梦洁股份）；服装家纺+2.56%（领涨乔治白）。近期资讯：家纺主业压舱石松动 “毛巾大王”孚日股份跨界新能源能否破局？。</p>
+  <div class="meta"><span>板块</span>纺织服饰+2.57%（领涨潮宏基） · 家纺+2.01%（领涨梦洁股份） · 服装家纺+2.56%（领涨乔治白） · 江苏板块+1.09%（领涨海鸥股份）</div>
+  <ul class="news"><li><span>2026-07-29</span>家纺主业压舱石松动 “毛巾大王”孚日股份跨界新能源能否破局？</li><li><span>2026-07-22</span>华夏永润六个月持有混合A：2026年第二季度利润36.75万元 净值增长率0.2%</li></ul>
+</article>
+<article class="card up">
+  <header>
+    <div class="nm"><b>宁波银行</b><span>SZ002142</span></div>
+    <div class="px"><b>+1.65%</b><span>32.00</span></div>
+  </header>
+  <p class="why">今日上涨 +1.65%，现价 32.00。所属/相关板块：银行Ⅱ+0.57%（领涨苏州银行）；城商行Ⅲ+0.97%（领涨苏州银行）；银行+0.57%（领涨苏州银行）。近期资讯：宁波银行(002142.SZ)：汪建中独立董事任职资格获宁波金融监管局核准。</p>
+  <div class="meta"><span>板块</span>银行Ⅱ+0.57%（领涨苏州银行） · 城商行Ⅲ+0.97%（领涨苏州银行） · 银行+0.57%（领涨苏州银行） · 浙江板块+1.41%（领涨亚太药业）</div>
+  <ul class="news"><li><span>2026-08-06</span>宁波银行(002142.SZ)：汪建中独立董事任职资格获宁波金融监管局核准</li><li><span>2026-07-31</span>宁波银行：第九届董事会第三次会议决议公告</li></ul>
+</article>
+<article class="card down">
+  <header>
+    <div class="nm"><b>中远海特</b><span>SH600428</span></div>
+    <div class="px"><b>-2.51%</b><span>11.65</span></div>
+  </header>
+  <p class="why">今日下跌 -2.51%，现价 11.65。所属/相关板块：航运港口+1.38%（领涨海通发展）；航运+1.31%（领涨海通发展）；交通运输+1.52%（领涨海通发展）。近期资讯：中远海特：李继春辞去总会计师等职位。</p>
+  <div class="meta"><span>板块</span>航运港口+1.38%（领涨海通发展） · 航运+1.31%（领涨海通发展） · 交通运输+1.52%（领涨海通发展） · 广东板块+0.88%（领涨京泉华）</div>
+  <ul class="news"><li><span>2026-08-07</span>中远海特：李继春辞去总会计师等职位</li><li><span>2026-08-07</span>中远海特：第九届董事会第十一次会议决议公告</li></ul>
+</article></div>
+</section>
+    <p class="foot">数据源：本机「东方财富经典版」自选分组 + 东财行情/板块/资讯接口。HTML 同步导出至桌面「东财自选阶段」。</p>
+  </div>
+</body>
+</html>
